@@ -1,26 +1,275 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
+/*
+  terminal.faith — tokens
+  Fósforo verde suave + leitura editorial (não cyan “AI”, não cards).
+*/
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-phosphor: var(--phosphor);
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-heading: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: 0.15rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.35rem;
+  --radius-xl: 0.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #f7f5f0;
+  --foreground: #1c1917;
+  --surface: #fffcf7;
+  --card: #fffcf7;
+  --card-foreground: #1c1917;
+  --popover: #fffcf7;
+  --popover-foreground: #1c1917;
+  --primary: #15803d;
+  --primary-foreground: #f0fdf4;
+  --secondary: #ebe6dc;
+  --secondary-foreground: #1c1917;
+  --muted: #ebe6dc;
+  --muted-foreground: #57534e;
+  --accent: #dcfce7;
+  --accent-foreground: #14532d;
+  --destructive: #be123c;
+  --border: #d6d0c4;
+  --input: #d6d0c4;
+  --ring: #15803d;
+  --phosphor: #15803d;
+  --radius: 0.35rem;
+  --glow: rgba(21, 128, 61, 0.08);
+}
+
+.dark {
+  --background: #070908;
+  --foreground: #e8ebe6;
+  --surface: #0d110e;
+  --card: #0d110e;
+  --card-foreground: #e8ebe6;
+  --popover: #101510;
+  --popover-foreground: #e8ebe6;
+  --primary: #4ade80;
+  --primary-foreground: #052e16;
+  --secondary: #121814;
+  --secondary-foreground: #e8ebe6;
+  --muted: #121814;
+  --muted-foreground: #9ca89a;
+  --accent: #121814;
+  --accent-foreground: #e8ebe6;
+  --destructive: #fb7185;
+  --border: #1c261e;
+  --input: #1c261e;
+  --ring: #4ade80;
+  --phosphor: #4ade80;
+  --glow: rgba(74, 222, 128, 0.07);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Atmosfera: vinheta + brilho suave — sem flat “AI dark” */
+.site-atmosphere {
+  position: relative isolate;
+  min-height: 100%;
+}
+
+.site-atmosphere::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 80% 55% at 12% -10%, var(--glow), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, var(--glow), transparent 45%),
+    var(--background);
+}
+
+.site-atmosphere::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-atmosphere::after {
+    opacity: 0.02;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 0.1ch;
+  vertical-align: text-bottom;
+  background: var(--phosphor);
+  animation: cursor-blink 1.1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.7s ease-out both;
+}
+
+.animate-rise-delay {
+  animation: rise-in 0.75s ease-out 0.12s both;
+}
+
+.animate-rise-delay-2 {
+  animation: rise-in 0.8s ease-out 0.22s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-rise-delay,
+  .animate-rise-delay-2 {
+    animation: none;
+  }
+}
+
+/* Leitura longa — serif editorial */
+.prose-article {
+  max-width: 65ch;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  line-height: 1.85;
+  letter-spacing: 0.005em;
+}
+
+.prose-article h2 {
+  font-family: var(--font-sans);
+  @apply mt-12 mb-4 text-2xl font-semibold tracking-tight text-foreground;
+}
+
+.prose-article h3 {
+  font-family: var(--font-sans);
+  @apply mt-9 mb-3 text-xl font-semibold tracking-tight text-foreground;
+}
+
+.prose-article p {
+  @apply mb-6 text-foreground/90;
+}
+
+.prose-article strong {
+  @apply font-semibold text-foreground;
+}
+
+.prose-article ul,
+.prose-article ol {
+  @apply mb-6 ml-6 space-y-2;
+}
+
+.prose-article ul {
+  @apply list-disc;
+}
+
+.prose-article ol {
+  @apply list-decimal;
+}
+
+.prose-article a {
+  @apply text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary;
+}
+
+.prose-article blockquote:not(.verse-quote) {
+  @apply my-8 border-l border-primary/40 pl-5 italic text-muted-foreground;
+}
+
+.page-shell {
+  @apply mx-auto w-full max-w-3xl px-5 py-14 sm:px-6 sm:py-20;
+}
+
+.meta-line {
+  @apply font-mono text-[0.7rem] tracking-[0.14em] text-primary/90 uppercase;
 }
