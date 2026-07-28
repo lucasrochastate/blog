@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 
 import { EngagedReadingTracker } from "@/components/analytics/engaged-reading-tracker";
 import { PostBody } from "@/components/posts/post-body";
+import { PostEngagement } from "@/components/posts/post-engagement";
 import { PostNav } from "@/components/posts/post-nav";
 import { RelatedPosts } from "@/components/posts/related-section";
-import { ShareButtons } from "@/components/posts/share-buttons";
 import {
   articleJsonLd,
   breadcrumbJsonLd,
@@ -171,14 +171,6 @@ export default async function PostPage({ params }: PageProps) {
             ))}
           </ul>
         ) : null}
-
-        <div className="mt-6">
-          <ShareButtons
-            title={post.title}
-            url={shareUrl}
-            excerpt={post.excerpt}
-          />
-        </div>
       </header>
 
       {coverUrl ? (
@@ -198,7 +190,13 @@ export default async function PostPage({ params }: PageProps) {
       <PostBody value={post.body} />
 
       <div className="mx-auto mt-12 max-w-[65ch]">
-        <ShareButtons title={post.title} url={shareUrl} excerpt={post.excerpt} />
+        <PostEngagement
+          slug={post.slug}
+          title={post.title}
+          url={shareUrl}
+          excerpt={post.excerpt}
+          initialLikes={post.likes ?? 0}
+        />
       </div>
 
       <div className="mx-auto mt-10 max-w-[65ch]">

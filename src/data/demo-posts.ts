@@ -46,6 +46,7 @@ export const demoPosts: Post[] = [
     excerpt:
       "Uma reflexão sobre o Salmo 46 e o convite a aquietar-se diante de Deus em meio ao ruído.",
     status: "published",
+    likes: 0,
     author: {
       _id: "author-1",
       name: "Autor",
@@ -127,6 +128,7 @@ export const demoPosts: Post[] = [
     excerpt:
       "Meditação em João 1 sobre a luz verdadeira que ilumina a todo homem e permanece mesmo nas trevas.",
     status: "published",
+    likes: 0,
     author: { _id: "author-1", name: "Autor" },
     category: demoCategories[1],
     tags: [demoTags[0], demoTags[1]],
@@ -176,6 +178,7 @@ export const demoPosts: Post[] = [
     excerpt:
       "Lições de Êxodo sobre provisão, dependência e fidelidade de Deus no caminho do deserto.",
     status: "published",
+    likes: 0,
     author: { _id: "author-1", name: "Autor" },
     category: demoCategories[0],
     tags: [demoTags[0]],
@@ -211,6 +214,7 @@ export const demoPosts: Post[] = [
     excerpt:
       "Uma reflexão sobre Romanos 6 e o chamado a viver a liberdade em Cristo com responsabilidade e gratidão.",
     status: "published",
+    likes: 0,
     author: { _id: "author-1", name: "Autor" },
     category: demoCategories[2],
     tags: [demoTags[0]],

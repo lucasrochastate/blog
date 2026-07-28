@@ -35,6 +35,7 @@ Preencha:
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | ID do projeto no Sanity |
 | `NEXT_PUBLIC_SANITY_DATASET` | Dataset (padrão: `production`) |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Versão da API (ex.: `2025-01-01`) |
+| `SANITY_API_WRITE_TOKEN` | Token Editor — necessário para curtidas |
 | `SANITY_REVALIDATE_SECRET` | Secret do webhook `/api/revalidate` |
 
 ### 3. Rodar o front
@@ -78,6 +79,7 @@ Ver também `EDITORIAL.md` (cadência, revisão mensal, webhook).
 | Rota | Função |
 |---|---|
 | `/feed.xml` | RSS |
+| `/api/likes` | Curtidas em posts |
 | `/api/revalidate` | Webhook Sanity → ISR on-demand |
 
 ## Scripts

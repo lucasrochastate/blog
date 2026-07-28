@@ -11,6 +11,7 @@ const postFields = groq`
   excerpt,
   status,
   searchIntent,
+  "likes": coalesce(likes, 0),
   "bodyText": pt::text(body),
   "author": author->{
     _id,

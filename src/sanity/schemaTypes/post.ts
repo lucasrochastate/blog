@@ -100,6 +100,15 @@ export const post = defineType({
       validation: (rule) => rule.required().max(280),
     }),
     defineField({
+      name: "likes",
+      title: "Curtidas",
+      type: "number",
+      group: "meta",
+      description: "Contador público. Incrementado pelo site; evite editar manualmente.",
+      initialValue: 0,
+      readOnly: true,
+    }),
+    defineField({
       name: "body",
       title: "Corpo do texto",
       type: "blockContent",

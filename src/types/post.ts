@@ -61,6 +61,7 @@ export type PostListItem = {
   /** Texto plano do corpo — usado para reading time / busca */
   bodyText?: string;
   estimatedMinutes?: number;
+  likes?: number;
 };
 
 export type VerseQuoteBlock = {
