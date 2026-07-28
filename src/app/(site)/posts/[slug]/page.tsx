@@ -16,7 +16,7 @@ import {
 import { SITE } from "@/lib/constants";
 import { formatDate } from "@/lib/format";
 import { formatReadingTime } from "@/lib/reading-time";
-import { absoluteUrl } from "@/lib/url";
+import { absoluteUrl, shareUrl } from "@/lib/url";
 import { isSanityConfigured } from "@/sanity/env";
 import {
   getAdjacentPosts,
@@ -103,7 +103,7 @@ export default async function PostPage({ params }: PageProps) {
       ? urlFor(post.coverImage).width(1400).height(788).url()
       : null);
 
-  const shareUrl = absoluteUrl(`/posts/${post.slug}`);
+  const postShareUrl = shareUrl(`/posts/${post.slug}`);
 
   return (
     <article className="page-shell">
@@ -193,7 +193,7 @@ export default async function PostPage({ params }: PageProps) {
         <PostEngagement
           slug={post.slug}
           title={post.title}
-          url={shareUrl}
+          url={postShareUrl}
           excerpt={post.excerpt}
           initialLikes={post.likes ?? 0}
         />

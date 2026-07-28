@@ -8,6 +8,8 @@ export const SITE = {
   description:
     "terminal.faith — reflexões bíblicas sérias, linguagem acessível e fé tratada com respeito. Leitura longa, tipografia em foco.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  /** Domínio canônico usado em compartilhamento (copiar / WhatsApp / nativo) */
+  shareOrigin: "https://terminal-faith.vercel.app",
   /** Cadência editorial comunicada ao leitor */
   cadence: "Uma reflexão nova por semana, em média.",
   /** Tradução bíblica padrão do blog */
