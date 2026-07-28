@@ -16,7 +16,8 @@ export function VerseQuote({ text, reference, translation }: VerseQuoteProps) {
       <footer className="mt-4 font-mono text-[0.7rem] tracking-wide text-muted-foreground">
         <cite className="not-italic">
           {reference}
-          {translation ? ` · ${translation}` : ""}
+          {" · "}
+          {translation || "ARA"}
         </cite>
       </footer>
     </blockquote>

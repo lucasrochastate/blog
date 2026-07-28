@@ -2,8 +2,6 @@ import { groq } from "next-sanity";
 
 /**
  * Visibilidade no site = documento Publishado no Sanity (perspective "published").
- * Rascunhos do Studio (drafts.*) não aparecem. Não filtramos pelo campo
- * custom "status" — ele conflitava com o botão Publish nativo.
  */
 const postFields = groq`
   _id,
@@ -12,13 +10,34 @@ const postFields = groq`
   publishedAt,
   excerpt,
   status,
-  "author": author->{ _id, name, bio },
+  searchIntent,
+  "bodyText": pt::text(body),
+  "author": author->{
+    _id,
+    name,
+    bio,
+    role,
+    context,
+    email,
+    "imageUrl": image.asset->url
+  },
   "category": category->{ _id, title, "slug": slug.current, description },
   "tags": tags[]->{ _id, title, "slug": slug.current },
   coverImage{
     alt,
     asset,
     "url": asset->url
+  },
+  seo{
+    title,
+    description,
+    canonicalUrl,
+    noIndex,
+    "ogImageUrl": ogImage.asset->url
+  },
+  relatedLinks[]{
+    label,
+    href
   }
 `;
 
@@ -46,6 +65,29 @@ export const postBySlugQuery = groq`
 
 export const postSlugsQuery = groq`
   *[${isVisiblePost}][].slug.current
+`;
+
+export const adjacentPostsQuery = groq`
+{
+  "previous": *[${isVisiblePost} && publishedAt < $publishedAt]
+    | order(publishedAt desc)[0]{ title, "slug": slug.current, publishedAt },
+  "next": *[${isVisiblePost} && publishedAt > $publishedAt]
+    | order(publishedAt asc)[0]{ title, "slug": slug.current, publishedAt }
+}
+`;
+
+export const relatedPostsQuery = groq`
+  *[
+    ${isVisiblePost}
+    && _id != $postId
+    && (
+      category._ref == $categoryId
+      || count((tags[]._ref)[@ in $tagIds]) > 0
+    )
+  ]
+  | order(publishedAt desc)[0...3] {
+    ${postFields}
+  }
 `;
 
 export const categoriesQuery = groq`
@@ -97,5 +139,15 @@ export const searchIndexQuery = groq`
     publishedAt,
     "bodyText": pt::text(body),
     "category": category->{ title, "slug": slug.current }
+  }
+`;
+
+export const rssPostsQuery = groq`
+  *[${isVisiblePost}] | order(publishedAt desc)[0...30] {
+    title,
+    "slug": slug.current,
+    excerpt,
+    publishedAt,
+    "bodyText": pt::text(body)
   }
 `;

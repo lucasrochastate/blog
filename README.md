@@ -35,6 +35,7 @@ Preencha:
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | ID do projeto no Sanity |
 | `NEXT_PUBLIC_SANITY_DATASET` | Dataset (padrão: `production`) |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Versão da API (ex.: `2025-01-01`) |
+| `SANITY_REVALIDATE_SECRET` | Secret do webhook `/api/revalidate` |
 
 ### 3. Rodar o front
 
@@ -62,10 +63,22 @@ npm run dev
 - Título, slug (auto), data, autor, categoria, tags
 - Imagem de capa (opcional, com `alt` obrigatório)
 - Resumo (excerpt)
-- Corpo (Portable Text + bloco **Citação bíblica**)
+- Corpo (Portable Text + bloco **Citação bíblica** com tradução obrigatória)
+- SEO (title, description, canonical, OG image, noindex)
+- Links internos planejados + intenção de busca
+- **Checklist de publicação** (obrigatório antes de Publish)
 - Status editorial (opcional, só organização no painel)
 
-Só posts **Publishados** no Studio (botão Publish) aparecem no site. Rascunhos do Studio não entram.
+Só posts **Publishados** no Studio (botão Publish) aparecem no site.
+
+Ver também `EDITORIAL.md` (cadência, revisão mensal, webhook).
+
+### Rotas úteis
+
+| Rota | Função |
+|---|---|
+| `/feed.xml` | RSS |
+| `/api/revalidate` | Webhook Sanity → ISR on-demand |
 
 ## Scripts
 

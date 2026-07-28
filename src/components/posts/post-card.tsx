@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDate } from "@/lib/format";
+import { formatReadingTime } from "@/lib/reading-time";
 import { isSanityConfigured } from "@/sanity/env";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostListItem } from "@/types/post";
@@ -31,6 +32,9 @@ export function PostCard({ post }: PostCardProps) {
               </Link>
             ) : null}
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+            {post.estimatedMinutes ? (
+              <span>{formatReadingTime(post.estimatedMinutes)}</span>
+            ) : null}
           </div>
 
           <h2 className="font-heading text-[1.35rem] font-semibold leading-snug tracking-tight sm:text-[1.5rem]">

@@ -4,6 +4,10 @@ export type Author = {
   _id: string;
   name: string;
   bio?: string;
+  role?: string;
+  context?: string;
+  email?: string;
+  imageUrl?: string;
 };
 
 export type Category = {
@@ -30,6 +34,19 @@ export type CoverImage = {
 
 export type PostStatus = "draft" | "published";
 
+export type PostSeo = {
+  title?: string;
+  description?: string;
+  ogImageUrl?: string;
+  canonicalUrl?: string;
+  noIndex?: boolean;
+};
+
+export type RelatedLink = {
+  label: string;
+  href: string;
+};
+
 export type PostListItem = {
   _id: string;
   title: string;
@@ -41,6 +58,9 @@ export type PostListItem = {
   category?: Category;
   tags?: Tag[];
   coverImage?: CoverImage & { url?: string };
+  /** Texto plano do corpo — usado para reading time / busca */
+  bodyText?: string;
+  estimatedMinutes?: number;
 };
 
 export type VerseQuoteBlock = {
@@ -55,6 +75,9 @@ export type PostBodyBlock = PortableTextBlock | VerseQuoteBlock;
 
 export type Post = PostListItem & {
   body: PostBodyBlock[];
+  seo?: PostSeo;
+  relatedLinks?: RelatedLink[];
+  searchIntent?: string;
 };
 
 export type SearchPost = {

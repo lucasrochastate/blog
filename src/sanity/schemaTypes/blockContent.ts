@@ -66,9 +66,11 @@ export const blockContent = defineType({
         },
         {
           name: "translation",
-          title: "Tradução (opcional)",
+          title: "Tradução",
           type: "string",
-          description: "Ex.: ARA, NVI, ACF",
+          description: "Identifique a versão (ARA, NVI, ACF…). Padrão do blog: ARA.",
+          initialValue: "ARA",
+          validation: (rule) => rule.required(),
         },
       ],
       preview: {
